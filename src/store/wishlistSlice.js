@@ -12,7 +12,7 @@ export const fetchWishlist = createAsyncThunk(
     'wishlist/fetchWishlist',
     async () => {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:5000/api/wishlist', {
+        const response = await axios.get('https://ajio-server.onrender.com/api/wishlist', {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -25,7 +25,7 @@ export const addToWishlist = createAsyncThunk(
     'wishlist/addToWishlist',
     async (productId) => {
         const token = localStorage.getItem('token');
-        const response = await axios.post('http://localhost:5000/api/wishlist/add', { productId }, {
+        const response = await axios.post('https://ajio-server.onrender.com/api/wishlist/add', { productId }, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -38,7 +38,7 @@ export const removeFromWishlist = createAsyncThunk(
     'wishlist/removeFromWishlist',
     async (productId) => {
         const token = localStorage.getItem('token');
-        await axios.delete(`http://localhost:5000/api/wishlist/${productId}`, {
+        await axios.delete(`https://ajio-server.onrender.com/api/wishlist/${productId}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

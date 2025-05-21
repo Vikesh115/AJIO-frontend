@@ -12,7 +12,7 @@ const initialState = {
 export const fetchProducts = createAsyncThunk(
     'products/fetchProducts',
     async () => {
-        const response = await axios.get('http://localhost:5000/api/products/');
+        const response = await axios.get('https://ajio-server.onrender.com/api/products/');
         return response.data;
     }
 );
@@ -20,7 +20,7 @@ export const fetchProducts = createAsyncThunk(
 export const fetchCategories = createAsyncThunk(
     'products/fetchCategories',
     async () => {
-        const response = await axios.get('http://localhost:5000/api/products/categories');
+        const response = await axios.get('https://ajio-server.onrender.com/api/products/categories');
         return response.data;
     }
 );
@@ -28,7 +28,7 @@ export const fetchCategories = createAsyncThunk(
 export const fetchProductsByCategory = createAsyncThunk(
     'products/fetchProductsByCategory',
     async (category) => {
-        const response = await axios.get(`http://localhost:5000/api/products/category/${category}`);
+        const response = await axios.get(`https://ajio-server.onrender.com/api/products/category/${category}`);
         return response.data;
     }
 );
@@ -36,7 +36,7 @@ export const fetchProductsByCategory = createAsyncThunk(
 export const fetchProductById = createAsyncThunk(
     'products/fetchProductById',
     async (id) => {
-        const response = await axios.get(`http://localhost:5000/api/products/${id}`);
+        const response = await axios.get(`https://ajio-server.onrender.com/api/products/${id}`);
         return response.data;
     }
 );

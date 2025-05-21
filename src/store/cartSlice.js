@@ -12,7 +12,7 @@ export const fetchCart = createAsyncThunk(
     'cart/fetchCart',
     async () => {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:5000/api/cart', {
+        const response = await axios.get('https://ajio-server.onrender.com/api/cart', {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -25,7 +25,7 @@ export const addToCart = createAsyncThunk(
     'cart/addToCart',
     async ({ productId, quantity }) => {
         const token = localStorage.getItem('token');
-        const response = await axios.post('http://localhost:5000/api/cart/add', { productId, quantity }, {
+        const response = await axios.post('https://ajio-server.onrender.com/api/cart/add', { productId, quantity }, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -38,7 +38,7 @@ export const removeFromCart = createAsyncThunk(
     'cart/removeFromCart',
     async (productId) => {
         const token = localStorage.getItem('token');
-        await axios.delete(`http://localhost:5000/api/cart/${productId}`, {
+        await axios.delete(`https://ajio-server.onrender.com/api/cart/${productId}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -51,7 +51,7 @@ export const updateCartItemQuantity = createAsyncThunk(
     'cart/updateCartItemQuantity',
     async ({ productId, quantity }) => {
         const token = localStorage.getItem('token');
-        const response = await axios.put(`http://localhost:5000/api/cart/${productId}`, { quantity }, {
+        const response = await axios.put(`https://ajio-server.onrender.com/api/cart/${productId}`, { quantity }, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
