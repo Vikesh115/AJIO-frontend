@@ -1,13 +1,19 @@
 import ProductCard from './ProductCard';
 import { useSelector } from 'react-redux';
 import { selectFilteredProducts } from '../../store/productSlice';
+import LoadingSpinner from '../common/LoadingSpinner';
 
 const ProductList = () => {
     const filteredProducts = useSelector(selectFilteredProducts);
     const { status, error } = useSelector(state => state.products);
 
     if (status === 'loading') {
-        return <div className="text-center py-6">Loading products...</div>;
+        return (
+            <div className=" mx-auto py-24 text-center">
+                <LoadingSpinner size="md" color="blue" />
+                Loading ProductList...
+            </div>
+        );
     }
 
     if (status === 'failed') {

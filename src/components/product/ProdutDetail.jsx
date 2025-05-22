@@ -5,6 +5,7 @@ import { fetchProductById } from '../../store/productSlice';
 import { FaStar, FaShoppingCart, FaHeart } from 'react-icons/fa';
 import { addToCart } from '../../store/cartSlice';
 import { addToWishlist } from '../../store/wishlistSlice';
+import LoadingSpinner from '../common/LoadingSpinner'
 
 const ProductDetail = () => {
     const { id } = useParams();
@@ -19,7 +20,12 @@ const ProductDetail = () => {
     }, [id, dispatch]);
 
     if (status === 'loading') {
-        return <div className="text-center py-6">Loading product details...</div>;
+        return (
+            <div className=" mx-auto py-24 text-center">
+                <LoadingSpinner size="md" color="blue" />
+                Loading ProductDetail...
+            </div>
+        );
     }
 
     if (status === 'failed') {
