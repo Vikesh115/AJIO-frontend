@@ -48,12 +48,10 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route
             path="/dashboard"
-            // element={token ? <Dashboard /> : <Navigate to="/login" />}
             element={<Dashboard />}
           />
           <Route
             path="/product/:id"
-            // element={token ? <ProductDetail /> : <Navigate to="/login" />}
             element={<ProductDetail />}
           />
           <Route

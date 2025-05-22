@@ -6,7 +6,8 @@ const initialState = {
     categories: [],
     status: 'idle',
     error: null,
-    searchTerm: ''
+    searchTerm: '',
+    selectedCategory: 'all',
 };
 
 export const fetchProducts = createAsyncThunk(
@@ -47,6 +48,9 @@ const productSlice = createSlice({
     reducers: {
         setSearchTerm: (state, action) => {
             state.searchTerm = action.payload;
+        },
+        setSelectedCategory: (state, action) => {
+            state.selectedCategory = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -63,15 +67,15 @@ const productSlice = createSlice({
                 state.error = action.error.message;
             })
             .addCase(fetchCategories.pending, (state) => {
-            state.status = 'loading';
+                state.status = 'loading';
             })
             .addCase(fetchCategories.fulfilled, (state, action) => {
                 state.categories = action.payload;
             })
             .addCase(fetchCategories.rejected, (state, action) => {
-            state.status = 'failed';
-            state.error = action.error.message;
-            state.categories = [];
+                state.status = 'failed';
+                state.error = action.error.message;
+                state.categories = [];
             })
             .addCase(fetchProductsByCategory.fulfilled, (state, action) => {
                 state.status = 'succeeded';
@@ -84,14 +88,27 @@ const productSlice = createSlice({
     }
 });
 
-export const { setSearchTerm } = productSlice.actions;
-
+// export const selectFilteredProducts = (state) => state.products.products;
 export const selectFilteredProducts = (state) => {
+    const { products, searchTerm } = state.products;
+    if (!searchTerm) return products;
+
+    const lowerTerm = searchTerm.toLowerCase();
+
+    return products.filter(product =>
+        product.title.toLowerCase().includes(lowerTerm) ||
+        product.description.toLowerCase().includes(lowerTerm)
+    );
+};
+
+export const selectSearchedProducts = (state) => {
     const { products, searchTerm } = state.products;
     return products?.filter(product =>
         product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         product.description.toLowerCase().includes(searchTerm.toLowerCase())
     );
 };
+
+export const { setSearchTerm, setSelectedCategory } = productSlice.actions;
 
 export default productSlice.reducer;

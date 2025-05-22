@@ -4,7 +4,8 @@ import {
     fetchProducts,
     fetchCategories,
     setSearchTerm,
-    fetchProductsByCategory
+    fetchProductsByCategory,
+    setSelectedCategory
 } from '../store/productSlice';
 import ProductList from '../components/product/ProductList';
 import CategoriesSidebar from './CategoriesSidebar';
@@ -12,12 +13,7 @@ import LoadingSpinner from '../components/common/LoadingSpinner';
 
 const Dashboard = () => {
     const dispatch = useDispatch();
-    const {
-        categories,
-        searchTerm,
-        status,
-        error
-    } = useSelector(state => state.products);
+        const { status, error, categories, searchTerm, selectedCategory } = useSelector((state) => state.products);
 
     useEffect(() => {
         dispatch(fetchProducts());
@@ -25,14 +21,16 @@ const Dashboard = () => {
     }, [dispatch]);
 
     const handleCategorySelect = (category) => {
+        dispatch(setSelectedCategory(category));
+        dispatch(setSearchTerm(''));
+
         if (category === 'all') {
             dispatch(fetchProducts());
-            dispatch(setSearchTerm(''));
         } else {
             dispatch(fetchProductsByCategory(category));
-            dispatch(setSearchTerm(''));
         }
     };
+
 
     if (status === 'loading') {
         return (
@@ -68,7 +66,7 @@ const Dashboard = () => {
                     <CategoriesSidebar
                         categories={categories}
                         onSelectCategory={handleCategorySelect}
-                        searchTerm={searchTerm}
+                        selectedCategory={selectedCategory}
                     />
                 </aside>
 

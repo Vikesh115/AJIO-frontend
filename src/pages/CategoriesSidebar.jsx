@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FaFilter, FaTimes } from 'react-icons/fa';
 
-const CategoriesSidebar = ({ categories, onSelectCategory, searchTerm }) => {
+const CategoriesSidebar = ({ categories, onSelectCategory, selectedCategory }) => {
     const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
     return (
@@ -24,7 +24,7 @@ const CategoriesSidebar = ({ categories, onSelectCategory, searchTerm }) => {
 
             {/* Sidebar content */}
             <div
-                className={`${isMobileSidebarOpen ? 'block' : 'hidden'} md:block bg-white p-4 rounded-lg shadow-md`}
+                className={`${isMobileSidebarOpen ? 'block' : 'hidden'} md:block bg-white p-4 rounded-lg shadow-md max-h-96 overflow-y-auto`}
             >
                 <h2 className="font-bold text-lg mb-4 flex items-center">
                     <FaFilter className="mr-2" /> Categories
@@ -34,22 +34,35 @@ const CategoriesSidebar = ({ categories, onSelectCategory, searchTerm }) => {
                     <li>
                         <button
                             onClick={() => onSelectCategory('all')}
-                            className={`w-full text-left px-3 py-2 rounded ${!searchTerm ? 'bg-blue-100 text-blue-800' : 'hover:bg-gray-100'}`}
+                            aria-pressed={selectedCategory === 'all'}
+                            className={`w-full text-left px-3 py-2 rounded transition-colors duration-150
+                                ${selectedCategory === 'all'
+                                    ? 'bg-blue-100 text-blue-800 font-semibold'
+                                    : 'hover:bg-gray-100 text-gray-900'}
+                                focus:outline-none focus:ring-2 focus:ring-blue-400`}
                         >
                             All Products
                         </button>
                     </li>
 
-                    {categories?.map((category) => (
-                        <li key={category}>
-                            <button
-                                onClick={() => onSelectCategory(category)}
-                                className={`w-full text-left px-3 py-2 rounded capitalize ${searchTerm === category ? 'bg-blue-100 text-blue-800' : 'hover:bg-gray-100'}`}
-                            >
-                                {category}
-                            </button>
-                        </li>
-                    ))}
+                    {categories?.map((category) => {
+                        const isActive = selectedCategory === category;
+                        return (
+                            <li key={category}>
+                                <button
+                                    onClick={() => onSelectCategory(category)}
+                                    aria-pressed={isActive}
+                                    className={`w-full text-left px-3 py-2 rounded capitalize transition-colors duration-150
+                                        ${isActive
+                                            ? 'bg-blue-100 text-blue-800 font-semibold'
+                                            : 'hover:bg-gray-100 text-gray-900'}
+                                        focus:outline-none focus:ring-2 focus:ring-blue-800`}
+                                >
+                                    {category}
+                                </button>
+                            </li>
+                        );
+                    })}
                 </ul>
             </div>
         </div>

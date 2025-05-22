@@ -29,10 +29,18 @@ const Header = () => {
         navigate('/');
     };
 
+    // const handleSearch = (term) => {
+    //     const trimmedTerm = term.trim();
+    //     if (trimmedTerm) {
+    //         dispatch(setSearchTerm(trimmedTerm));
+    //         navigate('/dashboard');
+    //     }
+    // };
     const handleSearch = (term) => {
         dispatch(setSearchTerm(term));
-        navigate('/dashboard');
     };
+
+
 
     return (
         <header className="bg-gray-800 text-white p-4 shadow-lg sticky top-0 z-40">
