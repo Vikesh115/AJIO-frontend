@@ -11,9 +11,7 @@ const ProductDetail = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const { products, status, error } = useSelector(state => state.products);
-    // const { items: wishlistItems } = useSelector(state => state.wishlist);
     const product = products[0];
-    // const isInWishlist = wishlistItems.some(item => item.id === product?.id);
     const { items: wishlistItems, loadingProductId: loadingWishlistProductId } = useSelector(state => state.wishlist);
     const token = localStorage.getItem('token');
 
@@ -45,9 +43,6 @@ const ProductDetail = () => {
         return <div className="text-center py-8">Product not found</div>;
     }
 
-    // const handleAddToCart = () => {
-    //     dispatch(addToCart({ productId: product.id, quantity: 1 }));
-    // };
     const handleAddToCart = () => {
         if (token) {
             dispatch(addToCart({ productId: product.id, quantity: 1 }));
@@ -66,27 +61,22 @@ const ProductDetail = () => {
         }
     };
 
-    // const handleAddToWishlist = () => {
-    //     if (!isInWishlist) {
-    //         dispatch(addToWishlist(product.id));
-    //     }
-    // };
     const handleToggleWishlist = () => {
         setIsInWishlist(prev => !prev);
 
         if (token) {
             if (isInWishlist) {
-                dispatch(removeFromWishlist(product.id));
+                dispatch(removeFromWishlist(product?.id));
             } else {
-                dispatch(addToWishlist(product.id));
+                dispatch(addToWishlist(product?.id));
             }
         } else {
             const existingWishlist = JSON.parse(localStorage.getItem('guest_wishlist') || '[]');
-            const isAlreadyInWishlist = existingWishlist.some(item => item.id === product.id);
+            const isAlreadyInWishlist = existingWishlist.some(item => item?.id === product?.id);
 
             let updatedWishlist;
             if (isAlreadyInWishlist) {
-                updatedWishlist = existingWishlist.filter(item => item.id !== product.id);
+                updatedWishlist = existingWishlist.filter(item => item?.id !== product?.id);
             } else {
                 updatedWishlist = [...existingWishlist, product];
             }
@@ -139,14 +129,6 @@ const ProductDetail = () => {
                                     <FaHeart size={20} />
                                 )}
                             </button>
-                            {/* <button
-                                onClick={handleAddToWishlist}
-                                className={`px-4 py-3 rounded-lg border flex items-center ${isInWishlist ? 'border-red-500 text-red-500' : 'border-gray-300 text-gray-600 hover:border-red-500 hover:text-red-500'}`}
-                                disabled={isInWishlist}
-                            >
-                                <FaHeart className="mr-2" />
-                                {isInWishlist ? 'In Wishlist' : 'Add to Wishlist'}
-                            </button> */}
                         </div>
                     </div>
                 </div>
