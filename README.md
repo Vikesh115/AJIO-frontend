@@ -56,9 +56,7 @@ A modern e-commerce frontend for AJIO built with React, Redux, and Tailwind CSS,
 ## Installation
 
 1. Clone the repository:
-```bash
-git clone https://github.com/Vikesh115/AJIO-frontend.git
+ - git clone https://github.com/Vikesh115/AJIO-frontend.git
 
 ## Author
-
 Vikesh Raut - https://github.com/Vikesh115
