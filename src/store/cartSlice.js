@@ -63,7 +63,11 @@ export const updateCartItemQuantity = createAsyncThunk(
 const cartSlice = createSlice({
     name: 'cart',
     initialState,
-    reducers: {},
+    reducers: {
+        setGuestCart: (state, action) => {
+            state.items = action.payload;
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchCart.pending, (state) => {

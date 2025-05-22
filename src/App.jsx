@@ -26,6 +26,12 @@ const App = () => {
       dispatch(fetchCategories());
       dispatch(fetchCart());
       dispatch(fetchWishlist());
+    }else{
+      const guestCart = JSON.parse(localStorage.getItem('guest_cart') || '[]');
+    const guestWishlist = JSON.parse(localStorage.getItem('guest_wishlist') || '[]');
+
+    dispatch({ type: 'cart/setGuestCart', payload: guestCart });
+    dispatch({ type: 'wishlist/setGuestWishlist', payload: guestWishlist });
     }
   }, [dispatch, token]);
 
