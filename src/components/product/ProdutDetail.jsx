@@ -15,16 +15,18 @@ const ProductDetail = () => {
     const { items: wishlistItems, loadingProductId: loadingWishlistProductId } = useSelector(state => state.wishlist);
     const token = localStorage.getItem('token');
 
-    const isInReduxWishlist = wishlistItems.some(item => item.id === product.id);
+    const [isInWishlist, setIsInWishlist] = useState(false);
 
-    const [isInWishlist, setIsInWishlist] = useState(isInReduxWishlist);
-
-    useEffect(() => {
-        setIsInWishlist(isInReduxWishlist);
-    }, [isInReduxWishlist]);
     useEffect(() => {
         dispatch(fetchProductById(id));
     }, [id, dispatch]);
+
+    useEffect(() => {
+        if (product && wishlistItems) {
+            setIsInWishlist(wishlistItems.some(item => item.id === product.id));
+        }
+    }, [product, wishlistItems]);
+    
 
     if (status === 'loading') {
         return (
