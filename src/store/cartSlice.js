@@ -108,4 +108,6 @@ export const selectCartTotal = (state) => {
     );
 };
 
+export const { setGuestCart } = cartSlice.actions;
+
 export default cartSlice.reducer;

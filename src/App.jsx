@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Header from './components/common/Header';
@@ -12,10 +12,11 @@ import Register from './components/auth/Register';
 import NotFound from './pages/NotFound';
 import Footer from './components/common/Footer';
 import { fetchProducts, fetchCategories } from './store/productSlice';
-import { fetchCart } from './store/cartSlice';
-import { fetchWishlist } from './store/wishlistSlice';
+import { fetchCart, setGuestCart } from './store/cartSlice';
+import { fetchWishlist, setGuestWishlist } from './store/wishlistSlice';
 
 const App = () => {
+  const [dataReady, setDataReady] = useState(false);
   const location = useLocation();
   const dispatch = useDispatch();
   const token = localStorage.getItem('token')
@@ -25,13 +26,14 @@ const App = () => {
       dispatch(fetchProducts());
       dispatch(fetchCategories());
       dispatch(fetchCart());
-      dispatch(fetchWishlist());
-    }else{
+      dispatch(fetchWishlist()).finally(() => setDataReady(true));
+    } else {
       const guestCart = JSON.parse(localStorage.getItem('guest_cart') || '[]');
-    const guestWishlist = JSON.parse(localStorage.getItem('guest_wishlist') || '[]');
+      const guestWishlist = JSON.parse(localStorage.getItem('guest_wishlist') || '[]');
 
-    dispatch({ type: 'cart/setGuestCart', payload: guestCart });
-    dispatch({ type: 'wishlist/setGuestWishlist', payload: guestWishlist });
+      dispatch(setGuestCart(guestCart));
+      dispatch(setGuestWishlist(guestWishlist));
+      setDataReady(true);
     }
   }, [dispatch, token]);
 
@@ -40,7 +42,7 @@ const App = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {shouldShowHeader && <Header />}
+      {shouldShowHeader && dataReady && <Header />}
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />

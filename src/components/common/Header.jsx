@@ -85,17 +85,27 @@ const Header = () => {
                     <div className="relative">
                         {/* Mobile view - simple logout text button (below md breakpoint) */}
                         <div className="md:hidden">
-                            <button
-                                onClick={handleLogout}
-                                className="hover:text-blue-300 focus:outline-none transition-colors flex items-center"
-                                aria-label="Logout"
-                            >
-                                <FaSignOutAlt size={18} className="mr-1" />
-                                <span className="text-sm">Logout</span>
-                            </button>
+                            {token ? (
+                                <button
+                                    onClick={handleLogout}
+                                    className="hover:text-blue-300 focus:outline-none transition-colors flex items-center"
+                                    aria-label="Logout"
+                                >
+                                    <FaSignOutAlt size={18} className="mr-1" />
+                                    <span className="text-sm">Logout</span>
+                                </button>
+                            ) : (
+                                <Link
+                                    to="/login"
+                                    className="hover:text-blue-300 focus:outline-none transition-colors flex items-center"
+                                    aria-label="Login"
+                                >
+                                    <span className="text-sm">Login / Register</span>
+                                </Link>
+                            )}
                         </div>
 
-                        {/* Desktop view - user icon with dropdown modal (md breakpoint and above) */}   
+                        {/* Desktop view - user icon with dropdown modal (md breakpoint and above) */}
                         <div
                             className="hidden md:block"
                             onMouseEnter={() => setShowUserModal(true)}

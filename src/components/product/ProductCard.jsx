@@ -9,7 +9,7 @@ const ProductCard = ({ product }) => {
     const dispatch = useDispatch();
     const { loadingProductId } = useSelector(state => state.cart)
     const { items: wishlistItems, loadingProductId: loadingWishlistProductId } = useSelector(state => state.wishlist);
-
+    const token = localStorage.getItem('token');
 
     const isInReduxWishlist = wishlistItems.some(item => item.id === product.id);
 
@@ -19,18 +19,61 @@ const ProductCard = ({ product }) => {
         setIsInWishlist(isInReduxWishlist);
     }, [isInReduxWishlist]);
 
+    // const handleAddToCart = () => {
+    //     dispatch(addToCart({ productId: product.id, quantity: 1 }));
+    // };
     const handleAddToCart = () => {
-        dispatch(addToCart({ productId: product.id, quantity: 1 }));
-    };
-
-    const handleToggleWishlist = () => {
-        setIsInWishlist(prev => !prev); 
-        if (isInWishlist) {
-            dispatch(removeFromWishlist(product.id));
+        if (token) {
+            dispatch(addToCart({ productId: product.id, quantity: 1 }));
         } else {
-            dispatch(addToWishlist(product.id));
+            const existingCart = JSON.parse(localStorage.getItem('guest_cart') || '[]');
+            const index = existingCart.findIndex(item => item.product.id === product.id);
+
+            if (index > -1) {
+                existingCart[index].quantity += 1;
+            } else {
+                existingCart.push({ product, quantity: 1 });
+            }
+
+            localStorage.setItem('guest_cart', JSON.stringify(existingCart));
+            dispatch({ type: 'cart/setGuestCart', payload: existingCart });
         }
     };
+
+
+    // const handleToggleWishlist = () => {
+    //     setIsInWishlist(prev => !prev);
+    //     if (isInWishlist) {
+    //         dispatch(removeFromWishlist(product.id));
+    //     } else {
+    //         dispatch(addToWishlist(product.id));
+    //     }
+    // };
+    const handleToggleWishlist = () => {
+        setIsInWishlist(prev => !prev);
+
+        if (token) {
+            if (isInWishlist) {
+                dispatch(removeFromWishlist(product.id));
+            } else {
+                dispatch(addToWishlist(product.id));
+            }
+        } else {
+            const existingWishlist = JSON.parse(localStorage.getItem('guest_wishlist') || '[]');
+            const isAlreadyInWishlist = existingWishlist.some(item => item.id === product.id);
+
+            let updatedWishlist;
+            if (isAlreadyInWishlist) {
+                updatedWishlist = existingWishlist.filter(item => item.id !== product.id);
+            } else {
+                updatedWishlist = [...existingWishlist, product];
+            }
+
+            localStorage.setItem('guest_wishlist', JSON.stringify(updatedWishlist));
+            dispatch({ type: 'wishlist/setGuestWishlist', payload: updatedWishlist });
+        }
+    };
+
 
     return (
         <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">

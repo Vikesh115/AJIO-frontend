@@ -91,4 +91,6 @@ const wishlistSlice = createSlice({
     }
 });
 
+export const { setGuestWishlist } = wishlistSlice.actions;
+
 export default wishlistSlice.reducer;
