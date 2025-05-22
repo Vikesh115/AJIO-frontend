@@ -14,6 +14,7 @@ const Header = () => {
     const { items: wishlistItems } = useSelector(state => state.wishlist);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const token = localStorage.getItem('token')
 
     // Sync local counts with Redux state
     useEffect(() => {
@@ -44,9 +45,7 @@ const Header = () => {
                     AJIO
                 </Link>
 
-                {/* <div className="w-full md:w-1/3 px-4"> */}
                 <SearchBar onSearch={handleSearch} />
-                {/* </div> */}
 
                 <nav className="flex items-center space-x-6 mt-4 md:mt-0">
                     <Link
@@ -97,7 +96,7 @@ const Header = () => {
                         </div>
 
                         {/* Desktop view - user icon with dropdown modal (md breakpoint and above) */}
-                        <div
+                        {/* <div
                             className="hidden md:block"
                             onMouseEnter={() => setShowUserModal(true)}
                             onMouseLeave={() => setShowUserModal(false)}
@@ -122,6 +121,58 @@ const Header = () => {
                                         <FaSignOutAlt className="mr-2" />
                                         Logout
                                     </button>
+                                </div>
+                            )}
+                        </div> */}
+
+                        <div
+                            className="hidden md:block"
+                            onMouseEnter={() => setShowUserModal(true)}
+                            onMouseLeave={() => setShowUserModal(false)}
+                            onClick={() => setShowUserModal(!showUserModal)}
+                        >
+                            <button
+                                className="hover:text-blue-300 focus:outline-none transition-colors"
+                                aria-label="User menu"
+                            >
+                                <FaUser size={20} />
+                            </button>
+
+                            {showUserModal && (
+                                <div className="absolute right-0 w-48 bg-white rounded-md shadow-lg py-1 z-50 divide-y divide-gray-100">
+                                    {token ? (
+                                        <>
+                                            <div className="px-4 py-2 text-sm text-gray-700">
+                                                {localStorage.getItem('email') || 'User'}
+                                            </div>
+                                            <button
+                                                onClick={handleLogout}
+                                                className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
+                                            >
+                                                <FaSignOutAlt className="mr-2" />
+                                                Logout
+                                            </button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Link
+                                                to="/login"
+                                                className=" px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
+                                                onClick={() => setShowUserModal(false)}
+                                            >
+                                                <FaSignInAlt className="mr-2" />
+                                                Sign In
+                                            </Link>
+                                            <Link
+                                                to="/register"
+                                                className=" px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
+                                                onClick={() => setShowUserModal(false)}
+                                            >
+                                                <FaUserPlus className="mr-2" />
+                                                Register
+                                            </Link>
+                                        </>
+                                    )}
                                 </div>
                             )}
                         </div>
