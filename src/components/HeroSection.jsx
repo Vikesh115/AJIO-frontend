@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const HeroSection = ({ title, subtitle, ctaText, ctaLink, backgroundImage }) => {
     return (
         <section
-            className="relative bg-gray-900 text-white py-20 md:py-48"
+            className="relative bg-gray-900 text-white py-20 md:py-52"
             style={{
                 backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${backgroundImage})`,
                 backgroundSize: 'cover',
