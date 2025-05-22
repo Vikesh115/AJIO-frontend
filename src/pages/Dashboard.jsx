@@ -36,7 +36,7 @@ const Dashboard = () => {
 
     if (status === 'loading') {
         return (
-            <div className="container mx-auto py-24 md:py-52 text-center">
+            <div className="container mx-auto py-8 text-center">
                 <LoadingSpinner size={8} />
                 <p className="mt-4 text-gray-600">Loading products...</p>
             </div>

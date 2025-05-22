@@ -19,7 +19,7 @@ const ProductDetail = () => {
     }, [id, dispatch]);
 
     if (status === 'loading') {
-        return <div className="text-center py-24 md:py-52">Loading product details...</div>;
+        return <div className="text-center py-6">Loading product details...</div>;
     }
 
     if (status === 'failed') {

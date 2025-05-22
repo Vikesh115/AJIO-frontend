@@ -17,7 +17,7 @@ const CartPage = () => {
 
     if (status === 'loading') {
         return (
-            <div className="container mx-auto py-12 text-center">
+            <div className="container mx-auto py-8 text-center">
                 <LoadingSpinner size={8} />
                 <p className="mt-2">Loading your cart...</p>
             </div>
