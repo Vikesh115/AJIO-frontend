@@ -7,7 +7,7 @@ const ProductList = () => {
     const { status, error } = useSelector(state => state.products);
 
     if (status === 'loading') {
-        return <div className="text-center py-8">Loading products...</div>;
+        return <div className="text-center py-24 md:py-52">Loading products...</div>;
     }
 
     if (status === 'failed') {

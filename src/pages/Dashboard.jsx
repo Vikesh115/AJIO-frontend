@@ -36,7 +36,7 @@ const Dashboard = () => {
 
     if (status === 'loading') {
         return (
-            <div className="container mx-auto py-12 text-center">
+            <div className="container mx-auto py-24 md:py-52 text-center">
                 <LoadingSpinner size={8} />
                 <p className="mt-4 text-gray-600">Loading products...</p>
             </div>
@@ -99,51 +99,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-// import { useEffect } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { fetchProducts, fetchCategories, setSearchTerm, fetchProductsByCategory } from '../store/productSlice';
-// import ProductList from '../components/product/ProductList';
-// import CategoriesSidebar from './CategoriesSidebar';
-
-// const Dashboard = () => {
-//     const dispatch = useDispatch();
-//     const { categories, searchTerm } = useSelector(state => state.products);
-
-//     useEffect(() => {
-//         dispatch(fetchProducts());
-//         dispatch(fetchCategories());
-//     }, [dispatch]);
-
-//     const handleCategorySelect = (category) => {
-//         if (category === 'all') {
-//             dispatch(fetchProducts());
-//             dispatch(setSearchTerm(''));
-//         } else {
-//             dispatch(fetchProductsByCategory(category));
-//             dispatch(setSearchTerm(''));
-//         }
-//     };
-
-//     return (
-//         <div className="container mx-auto py-8 px-4">
-//             <div className="flex flex-col md:flex-row">
-//                 <div className="md:w-1/4 mb-6 md:mb-0">
-//                     <CategoriesSidebar
-//                         categories={categories}
-//                         onSelectCategory={handleCategorySelect}
-//                         searchTerm={searchTerm}
-//                     />
-//                 </div>
-//                 <div className="md:w-3/2 md:pl-8">
-//                     <h1 className="text-2xl font-bold mb-6">
-//                         {searchTerm ? `Search Results for "${searchTerm}"` : 'All Products'}
-//                     </h1>
-//                     <ProductList />
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default Dashboard;
