@@ -10,6 +10,7 @@ import WishlistPage from './components/wishlist/WishlistPage';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import NotFound from './pages/NotFound';
+import Footer from './components/common/Footer';
 import { fetchProducts, fetchCategories } from './store/productSlice';
 import { fetchCart } from './store/cartSlice';
 import { fetchWishlist } from './store/wishlistSlice';
@@ -29,6 +30,7 @@ const App = () => {
   }, [dispatch, token]);
 
   const shouldShowHeader = !['/login', '/register'].includes(location.pathname);
+  const shouldShowFooter = !['/login', '/register'].includes(location.pathname);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -57,6 +59,7 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
+      {shouldShowFooter && <Footer />}
     </div>
   );
 };
