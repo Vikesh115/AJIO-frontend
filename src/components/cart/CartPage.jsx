@@ -26,7 +26,7 @@ const CartPage = () => {
 
     if (status === 'failed') {
         return (
-            <div className="container mx-auto py-8 text-center">
+            <div className="container mx-auto py-24 md:py-52 text-center">
                 <div className="text-red-500 mb-4">Error: {error}</div>
                 <button 
                     onClick={() => dispatch(fetchCart())}
@@ -40,7 +40,7 @@ const CartPage = () => {
 
     if (items.length === 0) {
         return (
-            <div className="container mx-auto py-8 text-center">
+            <div className="container mx-auto py-24 md:py-52 text-center">
                 <h2 className="text-2xl font-bold mb-4">Your cart is empty</h2>
                 <Link
                     to="/dashboard"
@@ -53,7 +53,7 @@ const CartPage = () => {
     }
 
     return (
-        <div className="container mx-auto py-8 px-4">
+        <div className="container mx-auto py-16 px-4">
             <h1 className="text-2xl font-bold mb-6">Your Cart ({items.length})</h1>
             <div className="bg-white rounded-lg shadow-md p-6">
                 {items.map(item => (
@@ -62,7 +62,7 @@ const CartPage = () => {
                 <div className="border-t pt-4 mt-4 flex justify-end">
                     <div className="text-right">
                         <p className="text-xl font-bold">Total: ${total.toFixed(2)}</p>
-                        <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-green-700 mt-4 transition-colors">
+                        <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-800 mt-4 transition-colors">
                             Proceed to Checkout
                         </button>
                     </div>
