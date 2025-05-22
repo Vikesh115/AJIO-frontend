@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaShoppingCart, FaHeart, FaUser, FaSignOutAlt } from 'react-icons/fa';
+import { FaShoppingCart, FaHeart, FaSignInAlt, FaUserPlus, FaUser, FaSignOutAlt } from 'react-icons/fa';
 import { setSearchTerm } from '../../store/productSlice';
 import SearchBar from './SearchBar';
 
