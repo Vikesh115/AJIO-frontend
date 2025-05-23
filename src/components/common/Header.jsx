@@ -29,15 +29,9 @@ const Header = () => {
         navigate('/');
     };
 
-    // const handleSearch = (term) => {
-    //     const trimmedTerm = term.trim();
-    //     if (trimmedTerm) {
-    //         dispatch(setSearchTerm(trimmedTerm));
-    //         navigate('/dashboard');
-    //     }
-    // };
     const handleSearch = (term) => {
         dispatch(setSearchTerm(term));
+        navigate('/dashboard')
     };
 
 
